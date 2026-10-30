@@ -1,0 +1,5 @@
+"construct","r_within","ci_low","ci_high","max_r_other","r_length_controlled","r_topic_masked","pass_convergence","pass_robustness","rater_icc","r_indicator_raters","pass_agreement","all_three_pass"
+"loneliness",0.216,0.149,0.284,0.109,0.216,0.217,TRUE,TRUE,0.744,0.353,TRUE,TRUE
+"stress",0.22,0.158,0.287,0.091,0.214,0.214,TRUE,TRUE,0.794,0.439,TRUE,TRUE
+"mood",0.219,0.16,0.28,0.087,0.217,0.203,TRUE,TRUE,0.782,0.524,TRUE,TRUE
+"self_esteem",0.139,0.067,0.211,0.1,0.138,0.139,FALSE,FALSE,0.852,0.303,TRUE,FALSE
