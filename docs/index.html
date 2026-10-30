@@ -202,9 +202,9 @@ footer { padding-block: 2rem 3rem; color: var(--muted); font-size: 0.9rem; displ
   <div class="hero">
     <span class="sim-flag">Simulated data · no real participants</span>
     <h1>Can what young people say to AI chatbots be measured as soundly as their survey answers?</h1>
-    <p class="lede">A prototype pipeline that turns donated AI-chat text into daily wellbeing indicators, then puts each indicator through three preregistered validity tests. This page runs the full demo on simulated young adults so you can see every step.</p>
+    <p class="lede">A prototype pipeline that turns donated AI-chat text into daily wellbeing indicators, then puts each indicator through three prespecified validity tests. This page runs the full demo on simulated young adults so you can see every step.</p>
     <div class="facts" id="facts"></div>
-    <p class="authors">Vasileios Stavropoulos (RMIT University) · Spyridon Kavvadias · prototype v0.2.0 · <a href="https://github.com/Vas08011980/conversation-psychometrics" target="_blank" rel="noopener">Code on GitHub</a></p>
+    <p class="authors">Vasileios Stavropoulos (RMIT University) · Spyridon Kavvadias · prototype v0.2.1 · <a href="https://github.com/Vas08011980/conversation-psychometrics" target="_blank" rel="noopener">Code on GitHub</a></p>
   </div>
 
   <section id="how">
@@ -216,7 +216,7 @@ footer { padding-block: 2rem 3rem; color: var(--muted); font-size: 0.9rem; displ
       <div class="step"><span class="n">1 · Parse</span><h3>Keep only the participant's words</h3><p>A donated ChatGPT-style export is read and only the participant's own messages are kept, never the AI's replies. Each message is assigned to a study day; messages sent before 04:00 count towards the previous day.</p></div>
       <div class="step"><span class="n">2 · Protect</span><h3>Remove personal details on the device</h3><p>Emails, phone numbers, links and self-introduced names are replaced with tags before anything is scored. Only daily scores leave the participant's machine.</p></div>
       <div class="step"><span class="n">3 · Score</span><h3>Compare meaning with the survey item</h3><p>Each construct is anchored by its daily survey item (e.g. "I felt lonely") plus paraphrases. A message scores high when it is closer in meaning to those anchors than to ordinary task requests. Scores are averaged per person-day.</p></div>
-      <div class="step"><span class="n">4 · Test</span><h3>Three preregistered validity tests</h3><p>Convergence with the person's own daily survey answer, robustness to message length and topic words, and agreement with blind human raters. Indicators that fail are reported, not dropped.</p></div>
+      <div class="step"><span class="n">4 · Test</span><h3>Three prespecified validity tests</h3><p>Convergence with the person's own daily survey answer, robustness to message length and topic words, and agreement with blind human raters. Indicators that fail are reported, not dropped.</p></div>
     </div>
   </section>
 
