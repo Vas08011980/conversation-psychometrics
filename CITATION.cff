@@ -1,9 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "conversation-psychometrics: daily wellbeing indicators from donated AI-chat text, with preregistered validity tests (prototype)"
-version: 0.1.0
+version: 0.2.0
 date-released: 2026-10-30
 license: MIT
+repository-code: "https://github.com/Vas08011980/conversation-psychometrics"
+url: "https://vas08011980.github.io/conversation-psychometrics/"
 authors:
   - family-names: Stavropoulos
     given-names: Vasileios

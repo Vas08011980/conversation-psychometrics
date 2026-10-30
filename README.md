@@ -1,7 +1,9 @@
 # conversation-psychometrics
 
 **Can what young people say to AI chatbots be measured as soundly as their survey answers?**
-Prototype pipeline (v0.1.0) that turns donated AI-chat text into daily wellbeing indicators and puts each indicator through three preregistered validity tests. Demonstrated here on fully simulated data.
+Prototype pipeline (v0.2.0) that turns donated AI-chat text into daily wellbeing indicators and puts each indicator through three preregistered validity tests. Demonstrated here on fully simulated data.
+
+**Interactive demo website:** [https://vas08011980.github.io/conversation-psychometrics/](https://vas08011980.github.io/conversation-psychometrics/)
 
 Vasileios Stavropoulos (RMIT University) · Spyridon Kavvadias
 
@@ -24,7 +26,7 @@ The encoder is pluggable: `lsa` (offline TF-IDF + SVD, used in the demo), `st:<m
 
 ```bash
 pip install -r requirements.txt
-./run_demo.sh
+./run_demo.sh   # simulate -> pipeline -> tests -> website (docs/index.html)
 ```
 
 Results (`demo/out/test_results.csv`, seed 2026, offline encoder):
@@ -40,6 +42,15 @@ The pipeline recovers what was built into the data and rejects the indicator it 
 
 **Limits.** These are simulated data generated from templates, so the results show that the method works end to end, not that real AI conversations carry valid wellbeing signal; that is the empirical question the method is built to test. Raters in the demo are simulated from what each day's text voices; in a real study, two trained raters code `rating_sample_LOCAL_ONLY.csv` blind to survey answers and indicators.
 
+## Interactive website
+
+[`docs/index.html`](https://vas08011980.github.io/conversation-psychometrics/) presents the same simulated demo as a website, built from the files above by `site/build_site.py` (the last step of `run_demo.sh`). It contains no data beyond what the demo generates, and its numbers come straight from `demo/out/test_results.csv` and the pipeline's daily scores (the build stops if the message-level scores do not reproduce `day_scores.csv`). Visitors can:
+
+- **Explore the data**: pick any of the 60 simulated participants and a construct, compare the daily survey answer with the language indicator across 14 days, and read each day's messages as typed, after personal details are removed, and with topic words masked, with each message's scores.
+- **Score a message**: the offline demo encoder runs in the browser (nothing typed leaves the page). It only knows the vocabulary of the simulated chats.
+- **See the validity tests**: pass/fail on the three tests for each indicator, and the within-person correlation of every indicator with every daily survey item (the discriminant check in test i).
+- **See the built-in traps**: topic writers, the rarely voiced self-esteem indicator, and personal details in text.
+
 ## Files
 
 | Path | Content |
@@ -49,6 +60,9 @@ The pipeline recovers what was built into the data and rejects the indicator it 
 | `pipeline/pipeline.py` | Parse, scrub, score, aggregate |
 | `tests/tests.R` | The three validity tests |
 | `demo/out/test_results.csv` | Demo results |
+| `site/build_site.py` | Builds the interactive website from the demo outputs |
+| `site/page_*.html`, `site/page_script.js` | Website layout and interactive code |
+| `docs/index.html` | The interactive website (served by GitHub Pages) |
 | `run_demo.sh` | Runs everything |
 
 MIT licence. Cite via `CITATION.cff`.
