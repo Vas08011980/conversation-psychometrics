@@ -1,0 +1,135 @@
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">conversation-psychometrics</div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#explore">Explore the data</a>
+      <a href="#try">Score a message</a>
+      <a href="#results">Validity tests</a>
+      <a href="#traps">Built-in traps</a>
+      <a href="#limits">Limits</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <span class="sim-flag">Simulated data · no real participants</span>
+    <h1>Can what young people say to AI chatbots be measured as soundly as their survey answers?</h1>
+    <p class="lede">A prototype pipeline that turns donated AI-chat text into daily wellbeing indicators, then puts each indicator through three preregistered validity tests. This page runs the full demo on simulated young adults so you can see every step.</p>
+    <div class="facts" id="facts"></div>
+    <p class="authors">Vasileios Stavropoulos (RMIT University) · Spyridon Kavvadias · prototype v0.2.0 · <a href="https://github.com/Vas08011980/conversation-psychometrics" target="_blank" rel="noopener">Code on GitHub</a></p>
+  </div>
+
+  <section id="how">
+    <div class="section-head">
+      <span class="label">The pipeline</span>
+      <h2>From a chat export to a daily score, in four steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n">1 · Parse</span><h3>Keep only the participant's words</h3><p>A donated ChatGPT-style export is read and only the participant's own messages are kept, never the AI's replies. Each message is assigned to a study day; messages sent before 04:00 count towards the previous day.</p></div>
+      <div class="step"><span class="n">2 · Protect</span><h3>Remove personal details on the device</h3><p>Emails, phone numbers, links and self-introduced names are replaced with tags before anything is scored. Only daily scores leave the participant's machine.</p></div>
+      <div class="step"><span class="n">3 · Score</span><h3>Compare meaning with the survey item</h3><p>Each construct is anchored by its daily survey item (e.g. "I felt lonely") plus paraphrases. A message scores high when it is closer in meaning to those anchors than to ordinary task requests. Scores are averaged per person-day.</p></div>
+      <div class="step"><span class="n">4 · Test</span><h3>Three preregistered validity tests</h3><p>Convergence with the person's own daily survey answer, robustness to message length and topic words, and agreement with blind human raters. Indicators that fail are reported, not dropped.</p></div>
+    </div>
+  </section>
+
+  <section id="explore">
+    <div class="section-head">
+      <span class="label">Explore the simulated data</span>
+      <h2>One young adult, fourteen days</h2>
+      <p>Pick a participant and a construct. The chart compares the daily survey answer with the language indicator from that day's chats, both standardised within the person. Click a day to read what was typed and how each message was scored.</p>
+    </div>
+    <div class="controls">
+      <div class="field"><label class="label" for="pid">Participant</label>
+        <select id="pid"></select></div>
+      <div class="field"><span class="label" id="con-label">Construct</span>
+        <div class="seg" id="con" role="group" aria-labelledby="con-label"></div></div>
+      <button class="btn" id="random" type="button">Random participant</button>
+      <button class="btn" id="topicp" type="button">Show a topic writer</button>
+    </div>
+    <div class="person-tags" id="ptags"></div>
+    <div class="explorer">
+      <div class="panel">
+        <div class="panel-head"><h3 id="chart-title">Daily survey vs language indicator</h3><span class="label">z within person</span></div>
+        <div class="chart-box"><svg id="chart" viewBox="0 0 640 316" width="100%" role="img" aria-label="Line chart of daily survey answers and language indicator across 14 days"></svg></div>
+        <div class="legend"><span><i id="lg-ema"></i>Daily survey answer (1–7)</span><span><i class="dash" id="lg-ind"></i>Language indicator</span></div>
+        <p class="rline" id="rline"></p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3 id="day-title">Day 1</h3>
+          <div class="seg" id="view" role="group" aria-label="Text view">
+            <button type="button" data-v="0" aria-pressed="false">As typed</button>
+            <button type="button" data-v="1" aria-pressed="true">Scrubbed</button>
+            <button type="button" data-v="2" aria-pressed="false">Topic-masked</button>
+          </div>
+        </div>
+        <div class="daybar" id="daybar" role="group" aria-label="Day"></div>
+        <div class="dayinfo" id="dayinfo"></div>
+        <div class="chat" id="chat"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="try">
+    <div class="section-head">
+      <span class="label">Score a message</span>
+      <h2>See how the demo encoder reads a sentence</h2>
+      <p>This runs the same offline encoder used in the demo (TF-IDF + SVD fitted on the simulated corpus) in your browser. Nothing you type leaves the page.</p>
+    </div>
+    <div class="try">
+      <div>
+        <label class="label" for="msg">Message</label>
+        <textarea id="msg">I wish I had someone to talk to right now, my friends haven't messaged in days</textarea>
+        <div class="examples" id="examples"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Construct scores</h3><span class="label">closeness − task baseline</span></div>
+        <div class="bars" id="bars"></div>
+        <div class="scrubbed" id="scrubbed"></div>
+        <p class="cover" id="cover"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="section-head">
+      <span class="label">Validity tests · seed 2026</span>
+      <h2>Three indicators pass all three tests. Self-esteem fails, as designed.</h2>
+      <p>Results from <span class="mono">tests/tests.R</span> on the simulated data. Within-person correlations are pooled across all participants, with 95% intervals from a cluster bootstrap over persons (1,000 resamples).</p>
+    </div>
+    <div class="res-grid" id="resgrid"></div>
+    <div class="matrix-wrap">
+      <div>
+        <h3>Discriminant check</h3>
+        <p style="color:var(--muted);font-size:.95rem;margin-top:.4rem">Each indicator must correlate more with its own survey item (outlined diagonal) than with the other three. The simulated states correlate .30 with each other, so general negativity would show up off the diagonal.</p>
+      </div>
+      <div class="matrix-scroll"><table class="matrix" id="matrix"></table></div>
+    </div>
+  </section>
+
+  <section id="traps">
+    <div class="section-head">
+      <span class="label">Built-in traps</span>
+      <h2>The simulation is designed to catch a weak method</h2>
+    </div>
+    <div class="traps" id="trapgrid"></div>
+  </section>
+
+  <section id="limits">
+    <div class="section-head">
+      <span class="label">Limits</span>
+      <h2>What this demo shows, and what it does not</h2>
+    </div>
+    <div class="limits">
+      <p>The data are simulated from message templates. The results show that the method works end to end and rejects the indicator it should reject; they do not show that real AI conversations carry a valid wellbeing signal. That is the empirical question the method is built to test.</p>
+      <p>Raters in the demo are simulated from the share of each day's messages that voice the construct, plus rater noise. In a real study, two trained raters code a local-only sample of conversation-days, blind to survey answers and indicators.</p>
+      <p>The demo encoder only knows the vocabulary of the simulated corpus. Real studies would swap in a pretrained encoder (sentence-transformers or a mental-health language model); comparing encoders on the same three tests is itself a robustness check.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div>Simulation: 60 young adults × 14 days; states correlated .30; seed 2026. Encoder: offline TF-IDF + SVD.</div>
+  <div>Vasileios Stavropoulos & Spyridon Kavvadias · MIT licence · <a href="https://github.com/Vas08011980/conversation-psychometrics" target="_blank" rel="noopener">github.com/Vas08011980/conversation-psychometrics</a></div>
+</footer>
