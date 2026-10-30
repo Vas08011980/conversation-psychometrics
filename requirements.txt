@@ -1,0 +1,7 @@
+numpy
+pandas
+pyyaml
+scikit-learn
+# optional encoders:
+# sentence-transformers   (encoder st:<model>)
+# transformers torch      (encoder hf:<model>, e.g. hf:mental/mental-bert-base-uncased)

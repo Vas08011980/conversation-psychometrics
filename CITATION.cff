@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "conversation-psychometrics: daily wellbeing indicators from donated AI-chat text, with preregistered validity tests (prototype)"
+version: 0.1.0
+date-released: 2026-10-30
+license: MIT
+authors:
+  - family-names: Stavropoulos
+    given-names: Vasileios
+    affiliation: RMIT University
+    orcid: "https://orcid.org/0000-0001-6964-4662"
+  - family-names: Kavvadias
+    given-names: Spyridon
+keywords: [psychometrics, natural language processing, ecological momentary assessment, data donation, conversational AI, wellbeing]

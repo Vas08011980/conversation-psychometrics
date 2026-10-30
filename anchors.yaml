@@ -1,0 +1,21 @@
+# Construct anchors: the EMA item wording first, then paraphrases (explicit and implicit).
+# "lexicon" lists topic words masked in the robustness test.
+loneliness:
+  item: "I felt lonely"
+  paraphrases: ["I feel so alone", "nobody to talk to", "no one ever texts me back", "I spent the whole day by myself", "I miss having friends around"]
+  lexicon: [lonely, loneliness, alone, isolated, isolation]
+stress:
+  item: "I felt stressed"
+  paraphrases: ["I am so overwhelmed", "too much to do and not enough time", "my deadline is tomorrow and I am panicking", "I can't keep up with everything", "everything is piling up"]
+  lexicon: [stress, stressed, stressful, overwhelmed, pressure]
+mood:
+  item: "I felt down"
+  paraphrases: ["I feel really low today", "nothing feels good anymore", "I could not get out of bed", "everything feels grey and pointless", "I feel sad"]
+  lexicon: [sad, down, low, depressed, unhappy]
+self_esteem:
+  item: "I felt bad about myself"
+  paraphrases: ["I am not good enough", "everyone is better than me", "I hate how I look", "I always mess things up", "I feel useless"]
+  lexicon: [worthless, useless, failure, confidence, esteem]
+neutral:
+  item: "help me with a task"
+  paraphrases: ["what is the capital of France", "write a python function", "give me a recipe for dinner", "summarise this article", "fix the grammar in this paragraph"]
