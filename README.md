@@ -1,7 +1,7 @@
 # conversation-psychometrics
 
 **Can what young people say to AI chatbots be measured as soundly as their survey answers?**
-Prototype pipeline (v0.2.0) that turns donated AI-chat text into daily wellbeing indicators and puts each indicator through three preregistered validity tests. Demonstrated here on fully simulated data.
+Prototype pipeline (v0.2.1) that turns donated AI-chat text into daily wellbeing indicators and puts each indicator through three prespecified validity tests. Demonstrated here on fully simulated data.
 
 **Interactive demo website:** [https://vas08011980.github.io/conversation-psychometrics/](https://vas08011980.github.io/conversation-psychometrics/)
 
@@ -41,6 +41,15 @@ Results (`demo/out/test_results.csv`, seed 2026, offline encoder):
 The pipeline recovers what was built into the data and rejects the indicator it should reject.
 
 **Limits.** These are simulated data generated from templates, so the results show that the method works end to end, not that real AI conversations carry valid wellbeing signal; that is the empirical question the method is built to test. Raters in the demo are simulated from what each day's text voices; in a real study, two trained raters code `rating_sample_LOCAL_ONLY.csv` blind to survey answers and indicators.
+
+## Use with your own data
+
+1. Save each participant's ChatGPT export (`conversations.json`) as `<ID>.json` in one folder, e.g. `mydata/exports/`.
+2. Save the daily survey answers as `mydata/ema.csv` with columns `id, day, construct, score` (higher = worse). Days are numbered from each participant's first chat (day 1); align survey days to match. Construct names must match `anchors.yaml`.
+3. Edit `anchors.yaml` (survey item wording, paraphrases, topic words to mask).
+4. Score with a pretrained encoder: `python3 pipeline/pipeline.py --exports mydata/exports --anchors anchors.yaml --out mydata/out --encoder st:all-mpnet-base-v2` (needs `pip install sentence-transformers`). Day boundaries use the computer's time zone.
+5. Two trained raters code `mydata/out/rating_sample_LOCAL_ONLY.csv` blind to survey answers and indicators; save their codes as `mydata/ratings.csv` with columns `id, day, construct, rater1, rater2`. Keep text files on the secure machine.
+6. Run `Rscript tests/tests.R mydata/out mydata`. Test (iii) uses `ratings.csv`; without it, test (iii) is reported as not run (NA). The simulated rater step is used only for the demo (when `truth.csv` is present and `ratings.csv` is not).
 
 ## Interactive website
 
